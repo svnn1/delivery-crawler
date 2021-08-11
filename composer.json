@@ -1,0 +1,26 @@
+{
+	
+  "name": "svnn1/ifood-crawler",
+  "description": "Ja ja eu penso no que colocar aqui...",
+  "authors": [
+    {
+      "name": "Silvano Santana",
+      "email": "jnkppl@hotmail.com"
+    }
+  ],
+	"require": {
+		"php": "^8.0",
+		"guzzlehttp/guzzle": "^7.3",
+    "ext-iconv": "*",
+    "symfony/dom-crawler": "^5.3",
+    "symfony/css-selector": "^5.3"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^5.3"
+  },
+	"autoload": {
+		"psr-4": {
+			"SvNDev\\": "app"
+		}
+	}
+}
