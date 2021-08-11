@@ -46,8 +46,8 @@ class IfoodCrawler
     $states = $this->getLocations();
     $restaurants = [];
 
-    foreach ($states as $index => $state) {
-      foreach ($state["cities"] as $index2 => $city) {
+    foreach ($states as $state) {
+      foreach ($state["cities"] as $city) {
         $cityName = ucwords(str_replace("-", " ", $city["name"]));
         $body = $this->client->get("delivery/{$city['slug']}")->getBody()->getContents();
 
