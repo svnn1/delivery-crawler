@@ -2,58 +2,61 @@
 
 require "vendor/autoload.php";
 
-use GuzzleHttp\Client;
-use Symfony\Component\DomCrawler\Crawler;
+use SvNDev\Crawlers\IfoodCrawler;
 
-$states = include "config/locations.php";
+//$states = include "config/locations.php";
 
-$client = new Client([
-  "base_uri"        => "https://wsloja.ifood.com.br",
-  "headers"         => [
-    "Pragma"             => "no-cache",
-    "Cache-control"      => "no-cache, no-store, max-age=0",
-    "Accept"             => "application/json",
-    "User-Agent"         => "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0",
-    "Origin"             => "https://www.ifood.com.br/",
-    "Referer"            => "https://www.ifood.com.br/",
-    "Accept-Language"    => "pt-BR,pt;q=1",
-    "access_key"         => "69f181d5-0046-4221-b7b2-deef62bd60d5",
-    "secret_key"         => "9ef4fb4f-7a1d-4e0d-a9b1-9b82873297d8",
-    "X-Ifood-Session-Id" => "eb086a94-76e1-4f01-964c-4945e3b7e610",
-  ],
-  "cookies"         => true,
-  "allow_redirects" => true,
-]);
 
-$client2 = new Client([
-  "base_uri"        => "https://www.ifood.com.br/delivery",
-  "headers"         => [
-    "Pragma"          => "no-cache",
-    "Cache-control"   => "no-cache, no-store, max-age=0",
-    "Accept"          => "application/json",
-    "User-Agent"      => "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0",
-    "Origin"          => "https://www.ifood.com.br/",
-    "Referer"         => "https://www.ifood.com.br/",
-    "Accept-Language" => "pt-BR,pt;q=1",
-  ],
-  "cookies"         => true,
-  "allow_redirects" => true,
-]);
 
-$restaurant = $client2
-  ->get("delivery/guarulhos-sp")
-  ->getBody()
-  ->getContents();
+//$client = new Client([
+//  "base_uri"        => "https://wsloja.ifood.com.br",
+//  "headers"         => [
+//    "Pragma"             => "no-cache",
+//    "Cache-control"      => "no-cache, no-store, max-age=0",
+//    "Accept"             => "application/json",
+//    "User-Agent"         => "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0",
+//    "Origin"             => "https://www.ifood.com.br",
+//    "Referer"            => "https://www.ifood.com.br",
+//    "Accept-Language"    => "pt-BR,pt;q=1",
+//  ],
+//  "cookies"         => true,
+//  "allow_redirects" => true,
+//]);
+//
+//$client2 = new Client([
+//  "base_uri"        => "https://www.ifood.com.br/delivery",
+//  "headers"         => [
+//    "Pragma"          => "no-cache",
+//    "Cache-control"   => "no-cache, no-store, max-age=0",
+//    "Accept"          => "application/json",
+//    "User-Agent"      => "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0",
+//    "Origin"          => "https://www.ifood.com.br/",
+//    "Referer"         => "https://www.ifood.com.br/",
+//    "Accept-Language" => "pt-BR,pt;q=1",
+//  ],
+//  "cookies"         => true,
+//  "allow_redirects" => true,
+//]);
+
+$states = (new IfoodCrawler)->getRestaurants();
+
+dd($states);
+
+//
+//$restaurant = $client2
+//  ->get("delivery/guarulhos-sp")
+//  ->getBody()
+//  ->getContents();
 
 //dd($restaurant);
 
-$crawler = new Crawler($restaurant);
+//$crawler = new Crawler($restaurant);
 
 //dd($crawler);
 
 //->filter("restaurant-name")
 
-dd($crawler->filter(".restaurant-name")->each(fn($span) => $span->text()));
+//dd($crawler->filter(".restaurant-name")->each(fn($span) => $span->text()));
 
 //foreach ($states as $state) {
 //  foreach ($state["cities"] as $index => $city) {
@@ -70,7 +73,7 @@ dd($crawler->filter(".restaurant-name")->each(fn($span) => $span->text()));
 //  ->get("/ifood-ws-v3/address/states?country=BR")
 //  ->getBody()
 //  ->getContents(), true);
-
+//
 //dd($states);
 
 //foreach ($states["data"]["list"] as $index => $state) {
