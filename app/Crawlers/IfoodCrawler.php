@@ -36,11 +36,6 @@ class IfoodCrawler
     ]);
   }
 
-  private function getNodeSelectorText(mixed $node, string $selector): array
-  {
-    return (new Crawler($node))->filter($selector)->each(fn($span) => $span->text());
-  }
-
   public function getRestaurants(): array
   {
     $states = $this->getLocations();
@@ -61,8 +56,13 @@ class IfoodCrawler
     return $restaurants;
   }
 
-  private function getLocations()
+  private function getLocations(): mixed
   {
-    return include Helpers::getConfigPath("locations.php");
+    return json_decode(file_get_contents(Helpers::getConfigPath('data.txt')), true);
+  }
+
+  private function getNodeSelectorText(mixed $node, string $selector): array
+  {
+    return (new Crawler($node))->filter($selector)->each(fn($span) => $span->text());
   }
 }
