@@ -1,2 +1,4 @@
 /.idea
 /vendor
+config/data.txt
+restaurants.txt
